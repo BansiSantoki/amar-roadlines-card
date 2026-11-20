@@ -32,7 +32,7 @@ export default function BusinessCard(props: Props) {
       {/* Fixed tanker & refinery background — stays put while the card content scrolls */}
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed top-0 h-screen overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+        className="pointer-events-none fixed top-0 h-[100dvh] overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
         style={{ width: 'var(--w)', left: 'calc(50% - var(--w) / 2)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -43,9 +43,7 @@ export default function BusinessCard(props: Props) {
           alt=""
           fetchpriority="high"
           decoding="async"
-          className="h-full w-full object-cover object-top"
-          animate={{ scale: reduce ? 1 : [1, 1.035, 1] }}
-          transition={{ duration: 24, ease: 'easeInOut', repeat: reduce ? 0 : Infinity }}
+          className="h-full w-full object-contain object-top"
         />
       </motion.div>
 
@@ -166,8 +164,8 @@ export default function BusinessCard(props: Props) {
           >
             <span aria-hidden className="mx-auto mt-[0.55em] block h-[2px] rounded-full bg-orange" style={{ width: w(0.2) }} />
             <span
-              className="mt-[0.5em] block font-semibold leading-[1.28] text-navy/90"
-              style={{ fontSize: w(0.039) }}
+              className="mt-[0.5em] block whitespace-nowrap font-semibold leading-[1.28] text-navy/90"
+              style={{ fontSize: w(0.032) }}
             >
               {formatAddress(address)}
             </span>

@@ -43,7 +43,7 @@ export default function BusinessCard(props: Props) {
           alt=""
           fetchpriority="high"
           decoding="async"
-          className="h-full w-full object-contain object-top"
+          className="h-full w-full object-cover object-top"
         />
       </motion.div>
 

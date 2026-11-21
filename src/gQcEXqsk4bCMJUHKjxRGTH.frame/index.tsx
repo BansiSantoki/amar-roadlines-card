@@ -20,32 +20,41 @@ export default function BusinessCard(props: Props) {
   )}`
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-navy-deep font-sans text-navy antialiased">
+    <div className="fixed inset-0 overflow-hidden bg-navy-deep font-sans text-navy antialiased">
       {/* Desktop surround: the same scene, softened, so the portrait card sits centred */}
       <div aria-hidden className="pointer-events-none fixed inset-0 hidden overflow-hidden sm:block">
         <img src={BG_URL} alt="" className="h-full w-full scale-110 object-cover opacity-35 blur-2xl" />
         <div className="absolute inset-0 bg-navy-deep/60" />
       </div>
 
-      {/* Fixed tanker & refinery background — stays put while the card content scrolls */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none fixed top-0 h-screen overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
-        style={{ width: 'var(--w)', height: '100lvh', left: 'calc(50% - var(--w) / 2)' }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: EASE }}
+      {/* The portrait card frame */}
+      <div
+        className="relative mx-auto h-full overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+        style={{ width: 'var(--w)' }}
       >
-        <motion.img
-          src={BG_URL}
-          alt=""
-          fetchpriority="high"
-          decoding="async"
-          className="h-full w-full object-cover object-top"
-        />
-      </motion.div>
+        {/* Fixed tanker & refinery background — stays completely put, full height, no crop */}
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: EASE }}
+        >
+          <img
+            src={BG_URL}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full object-fill select-none"
+          />
+        </motion.div>
 
-      <main className="relative mx-auto" style={{ width: 'var(--w)' }}>
+        {/* Scrollable details layer — only the details on top scroll */}
+        <div
+          className="no-scrollbar relative h-full overflow-y-auto overflow-x-hidden"
+          style={{ overscrollBehaviorY: 'contain', WebkitOverflowScrolling: 'touch' }}
+        >
+          <main className="relative mx-auto" style={{ width: 'var(--w)' }}>
         {/* Header: logo + tagline */}
         {/* No transform/opacity on this wrapper: the logo's white ground is removed with
             mix-blend-multiply, which needs to blend straight onto the sky behind it. */}
@@ -197,10 +206,12 @@ export default function BusinessCard(props: Props) {
         </section>
 
         {/* Save contact */}
-        <section style={{ paddingInline: w(0.075), paddingTop: w(0.07), paddingBottom: w(0.34) }}>
+        <section style={{ paddingInline: w(0.075), paddingTop: w(0.07), paddingBottom: w(0.12) }}>
           <SaveContactButton phone={phone} website={siteUrl} />
         </section>
       </main>
+        </div>
+      </div>
     </div>
   )
 }

@@ -18,9 +18,11 @@
 html,
 body {
   margin: 0;
+  height: 100%;
   background: var(--color-navy-deep);
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
 }
 
 /* Width of the portrait card: full phone width, capped to a phone-like column on larger screens */
@@ -31,6 +33,14 @@ body {
   :root {
     --w: min(480px, 46vh);
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Soft orange glow on action buttons */

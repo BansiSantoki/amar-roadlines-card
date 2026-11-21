@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { MapPin, PhoneCall } from 'lucide-react'
 
 import { ActionCard } from './components/ActionCard'
@@ -12,8 +12,6 @@ type Props = Partial<typeof args>
 export default function BusinessCard(props: Props) {
   const { phone, website, address } = { ...args, ...props }
   const reduce = useReducedMotion()
-  const { scrollY } = useScroll()
-  const headerY = useTransform(scrollY, [0, 320], [0, reduce ? 0 : 56])
 
   const tel = `tel:${phone.replace(/[^\d+]/g, '')}`
   const siteUrl = `https://${website.replace(/^https?:\/\//, '')}`
@@ -32,8 +30,8 @@ export default function BusinessCard(props: Props) {
       {/* Fixed tanker & refinery background — stays put while the card content scrolls */}
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed top-0 h-[100dvh] overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
-        style={{ width: 'var(--w)', left: 'calc(50% - var(--w) / 2)' }}
+        className="pointer-events-none fixed top-0 h-screen overflow-hidden bg-navy-deep sm:shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+        style={{ width: 'var(--w)', height: '100lvh', left: 'calc(50% - var(--w) / 2)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, ease: EASE }}
@@ -56,7 +54,7 @@ export default function BusinessCard(props: Props) {
             src={LOGO_URL}
             alt="Amar Roadlines"
             className="block mix-blend-multiply select-none"
-            style={{ width: w(0.8), marginBottom: w(-0.06), marginTop: w(-0.012), y: headerY }}
+            style={{ width: w(0.8), marginBottom: w(-0.06), marginTop: w(-0.012) }}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, ease: EASE, delay: 0.08 }}
@@ -64,7 +62,7 @@ export default function BusinessCard(props: Props) {
           />
           <motion.p
             className="text-center font-semibold italic leading-[1.2] tracking-[-0.01em] text-navy"
-            style={{ fontSize: w(0.057), marginTop: w(0.012), y: headerY }}
+            style={{ fontSize: w(0.057), marginTop: w(0.012) }}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: EASE, delay: 0.18 }}
@@ -78,7 +76,7 @@ export default function BusinessCard(props: Props) {
             initial={{ opacity: 0, scaleX: 0.6 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.3, ease: EASE, delay: 0.28 }}
-            style={{ width: w(0.42), marginTop: w(0.012), y: headerY }}
+            style={{ width: w(0.42), marginTop: w(0.012) }}
           >
             <Swoosh className="block h-auto w-full text-orange" />
           </motion.div>
